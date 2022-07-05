@@ -1,9 +1,9 @@
 import os
 import sys
-import logging
 import numpy as np
 import igraph as ig
 from ..qcircuit.utils import edges_to_index
+from ..utils import info_print
 
 
 __all__ = ["draw_network"]
@@ -36,7 +36,7 @@ def draw_network(genes, edges, theta, threshold=5, filename=None):
     """
     info_msg = " and exporting to {file} file.".format(file=filename) \
         if filename is not None else ""
-    logging.info("Drawing the network representation of the qscGRN model{msg}"
+    info_print("Drawing the network representation of the qscGRN model{msg}"
                  .format(msg=info_msg))
 
     idx = edges_to_index(genes, edges)

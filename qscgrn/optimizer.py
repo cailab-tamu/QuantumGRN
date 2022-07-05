@@ -1,8 +1,7 @@
-import logging
 import numpy as np
 import pandas as pd
 from .qcircuit import quantum_circuit
-from .utils import Progbar
+from .utils import Progbar, info_print
 
 
 __all__ = ["model"]
@@ -128,7 +127,7 @@ class model(quantum_circuit):
             Default : False
         """
         super().__init__(genes, theta, edges, drop_zero)
-        logging.info("The QuantumGRN model is been initialized with "
+        info_print("The QuantumGRN model is been initialized with "
                      "{ngenes} genes and {ncells} cells"
                      .format(ngenes=len(genes), ncells=ncells))
         self.ncells = ncells
@@ -162,8 +161,8 @@ class model(quantum_circuit):
             If gradient is not a None object.
         """
         if self.gradient is not None:
-            logging.error("Gradients for the QuantumGRN optimization "
-                          "are aleardy initialized")
+            info_print("Gradients for the QuantumGRN optimization "
+                       "are aleardy initialized", level="E")
             raise AttributeError("The quantum circuit for GRN model "
                                  "has gradients initialized")
 
@@ -249,7 +248,7 @@ class model(quantum_circuit):
         with respect of the total number of iterations. Some code
         is reused from Tensorflow (tf.kera.utils.Progbar)
         """
-        logging.info("Starting the optimization for the QuantumGRN")
+        info_print("Starting the optimization for the QuantumGRN")
         progbar = Progbar(self.epochs)
         training_theta = []
         for epoch in range(self.epochs):
@@ -277,8 +276,9 @@ class model(quantum_circuit):
                     if self.loss_threshold > loss else \
                     "Due to the number of epochs reached"
 
-                logging.info("Optimization completed!!.. {msg}"
-                             .format(msg=end_msg))
+                info_print("Optimization completed!!.. {msg}"
+                           .format(msg=end_msg))
+
                 break
 
             self.theta = self.theta - self.lr * self.gradient
@@ -304,7 +304,7 @@ class model(quantum_circuit):
             If save_theta is False
         """
         if self.save_theta:
-            logging.info("Theta values during optimization are "
+            info_print("Theta values during optimization are "
                          "exported to {file}".format(file=filename))
             header=None
             for edge in self.theta.index:
@@ -314,9 +314,9 @@ class model(quantum_circuit):
             np.savetxt(filename, self.training_theta[::sample],
                        delimiter=",", header=header)
         else:
-            logging.error("Theta values were not saved during "
+            info_print("Theta values were not saved during "
                           "training since the attribute save_theta "
-                          "is {flag}".format(flag=self.save_theta))
+                          "is {flag}".format(flag=self.save_theta), level="E")
             raise AttributeError("The attribute save_theta is "
                                  "{flag}".format(flag=self.save_theta))
 

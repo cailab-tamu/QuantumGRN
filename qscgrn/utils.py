@@ -1,7 +1,6 @@
 import os
 import sys
 import time
-import logging
 import numpy as np
 import pandas as pd
 
@@ -80,7 +79,7 @@ def qsc_distribution(dataframe, threshold=0, drop_zero=True):
                                return_counts=True)
     labels = np.flip(labels, axis=0).T
     prob = _qsc_probabilities(ngenes, labels, counts, drop_zero)
-    logging.info("The observed probability `p_obs` is calculated")
+    info_print("The observed probability `p_obs` is calculated")
     return prob
 
 
@@ -111,7 +110,7 @@ def qsc_order_gene(dataframe, threshold=0):
     mask = dataframe > threshold
     counts = mask.sum(axis=0).sort_values(ascending=False)
     ordered_genes = counts.index.to_list()
-    logging.info("The dataframe genes are ordered")
+    info_print("The dataframe genes are ordered")
     return dataframe[ordered_genes]
 
 
@@ -140,7 +139,7 @@ def qsc_activation_ratios(dataframe, threshold=0):
                          "object")
     scdata = dataframe.to_numpy().T
     _, ncells = scdata.shape
-    logging.info("Activation ratios are computed")
+    info_print("Activation ratios are computed")
     return np.sum((scdata > threshold) + 0, axis=1) / ncells
 
 
@@ -170,6 +169,12 @@ def _qsc_labels(ngenes):
         labels.append(label)
 
     return labels
+
+
+def info_print(msg, level="I"):
+    date = time.strftime("%Y-%m-%d %H:%M:%S")
+    sys.stdout.write("{date} | {level} | {msg}\n"
+                     .format(date=date, msg=msg, level=level))
 
 
 def _print_msg(message, line_break=True):

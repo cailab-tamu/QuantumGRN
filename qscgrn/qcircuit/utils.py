@@ -1,6 +1,6 @@
-import logging
 import numpy as np
 import pandas as pd
+from ..utils import info_print
 
 
 __all__ = ["theta_init", "edges_init", "edges_to_index",
@@ -59,10 +59,10 @@ def theta_init(genes, method="zeros",
         for gene in genes:
             sr[gene, gene] = np.pi / 2
 
-    logging.info("Theta series is initialized using {method} as "
-                 "method with{flag} activation values".format(
-                     method=method, flag=flag_act
-                 ))
+    info_print("Theta series is initialized using {method} as "
+               "method with{flag} activation values".format(
+                   method=method, flag=flag_act
+               ))
 
     return sr
 
@@ -87,7 +87,7 @@ def edges_init(genes):
             if g1 != g2:
                 combinations.append((g1, g2))
 
-    logging.info("Edges for the QuantumGRN and quantum circuit are "
+    info_print("Edges for the QuantumGRN and quantum circuit are "
                  "created for {ngenes} genes".format(ngenes=len(genes)))
 
     return combinations

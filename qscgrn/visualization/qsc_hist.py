@@ -1,9 +1,8 @@
 import numpy as np
-import logging
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
-from ..utils import _qsc_labels
+from ..utils import _qsc_labels, info_print
 
 
 __all__ = ["mini_hist", "comparison_hist"]
@@ -46,8 +45,9 @@ def mini_hist(ngenes, distribution, limit=0.02,
     """
     info_msg = " and exporting to {file} file.".format(file=filename) \
         if filename is not None else ""
-    logging.info("Plotting the {title} in a barplot{msg}"
+    info_print("Plotting the {title} in a barplot{msg}"
                  .format(title=title, msg=info_msg))
+
     mask = distribution > limit if mask is None else mask
     length = np.sum(mask)
     labels = np.array(_qsc_labels(ngenes))
@@ -83,7 +83,8 @@ def comparison_hist(ngenes, p_obs, p_out, limit=0.02,
                     ymax=1.0, mask=None, filename=None,
                     x_label="Cell activation state",
                     y_label="Count(%)",
-                    title="Comparison of distributions"):
+                    title="Comparison of distributions",
+                    tags=["p^{obs}", "p^{out}"]):
     """
     Generates a comparison barplot between the `p_obs` and `p_out` that shows
     the states with higher probabilty than the limit or same as the mask.
@@ -110,11 +111,13 @@ def comparison_hist(ngenes, p_obs, p_out, limit=0.02,
         The label for the vertical axis.
     title : str
         The title for the barplot.
+    tags : list
+        Labels of each distribution in the comparison (legend).
     """
     info_msg =" and exporting to {file} file.".format(file=filename) \
         if filename is not None else ""
-    logging.info("Plotting the {title} in a barplot{msg}"
-                 .format(title=title, msg=info_msg))
+    info_print("Plotting the {title} in a barplot{msg}"
+               .format(title=title, msg=info_msg))
 
     length = np.sum(mask)
     labels = np.array(_qsc_labels(ngenes))
@@ -125,8 +128,8 @@ def comparison_hist(ngenes, p_obs, p_out, limit=0.02,
     Y = p_out[mask].round(4)
 
     plt.figure(figsize=(length * 0.5, 4))
-    plt.bar(x-0.3, X, width=0.5, label=r"$p^{obs}$")
-    plt.bar(x+0.3, Y, width=0.5, label=r"$p^{out}$")
+    plt.bar(x-0.3, X, width=0.5, label="${}$".format(tags[0]))
+    plt.bar(x+0.3, Y, width=0.5, label="${}$".format(tags[1]))
     plt.xlim([-1, 2 * length])
     plt.ylim([0, ymax])
     plt.xticks(x, labels, rotation=90, fontsize=10)

@@ -1,14 +1,15 @@
-import logging
 import numpy as np
 import pandas as pd
 from .utils import *
 from .gates import *
+from ..run import *
+from ..utils import info_print
 
 
 __all__ = ['quantum_circuit']
 
 
-class quantum_circuit:
+class quantum_circuit(qscgrn_model):
     """
     Attributes
     ----------
@@ -87,10 +88,7 @@ class quantum_circuit:
             `|0>_n` state to 0, and rescale the rest of the
             distribution.
         """
-        self.ngenes = len(genes)
-        self.genes = genes
-        self.theta = theta
-        self.edges = edges
+        super().__init__(genes, theta, edges, drop_zero)
         # numerical indexes are needed to construct the circuit
         self.indexes = edges_to_index(genes, edges)
         # array storage for the quantum circuit (Lenc, Lk and
@@ -103,7 +101,6 @@ class quantum_circuit:
         self.input = np.zeros((2**self.ngenes, 1))
         self.input[0, 0] = 1.
         self.derivatives = None
-        self.drop_zero = drop_zero
 
 
     def __str__(self):
@@ -120,7 +117,7 @@ class quantum_circuit:
             If circuit attribute is a None object.
         """
         if not self.circuit:
-            logging.error("The QuantumGRN model is not initialized")
+            info_print("The QuantumGRN model is not initialized")
             raise AttributeError("The quantum circuit for GRN model "
                                  "is not constructed")
 
@@ -135,8 +132,8 @@ class quantum_circuit:
             If derivatives is not a None object
         """
         if self.derivatives is not None:
-            logging.error("Derivatives for the QuantumGRN are already "
-                          "initialized")
+            info_print("Derivatives for the QuantumGRN are already "
+                          "initialized", level="E")
             raise AttributeError("The quantum circuit for GRN model "
                                   "has derivatives initialized")
 
@@ -151,8 +148,8 @@ class quantum_circuit:
             If derivatives is a None object
         """
         if self.derivatives is None:
-            logging.error("Derivatives for the QuantumGRN are not "
-                          "initialized")
+            info_print("Derivatives for the QuantumGRN are not "
+                          "initialized", level="E")
             raise AttributeError("The quantum circuit for GRN model "
                                  "does not have derivatives "
                                  "initialized")
