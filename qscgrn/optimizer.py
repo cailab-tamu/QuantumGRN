@@ -222,8 +222,10 @@ class model(quantum_circuit):
 
             for idx, edge in enumerate(self.edges):
                 index = self.indexes[idx]
-                der_state = dv.loc[edge].to_numpy().\
-                    reshape(2**self.ngenes, 1)
+                tmp = (dv.loc[edge] + dv.loc[(edge[1], edge[0])]) / 2
+                der_state = tmp.to_numpy().reshape(2**self.ngenes, 1)
+                # der_state = dv.loc[edge].to_numpy().\
+                #     reshape(2**self.ngenes, 1)
                 der_loss = (1 + log) * 2 * v * der_state \
                     * (N_out / h_N_out)
                 self.gradient[edge] = np.sum(der_loss)
@@ -252,6 +254,7 @@ class model(quantum_circuit):
         progbar = Progbar(self.epochs)
         training_theta = []
         for epoch in range(self.epochs):
+            delta = 1
             terminate = True if epoch+1 == self.epochs else False
             self.compute_derivatives()
             self.compute_gradient()
@@ -261,11 +264,17 @@ class model(quantum_circuit):
             self.loss[epoch] = loss
             self.error[epoch] = error
             progbar.update(epoch+1)
+            if epoch >= 11:
+                lossi = self.loss[epoch-9: epoch+1].mean()
+                lossf = self.loss[epoch-10]
+                delta = np.abs(lossf-lossi) / lossi
+#                print(epoch, delta, self.loss[epoch-9: epoch+1].mean() / self.loss[epoch-10], loss)
 
             if self.save_theta:
                 training_theta.append(self.theta)
 
-            if self.loss_threshold > loss or terminate:
+            # if self.loss_threshold > loss or terminate:
+            if 1e-17 > delta or terminate:
                 self.loss = self.loss[:epoch+1]
                 self.error = self.error[:epoch+1]
 

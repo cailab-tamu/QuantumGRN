@@ -47,15 +47,15 @@ def draw_network(genes, edges, theta, threshold=5, filename=None):
     edges = theta.index.to_list()
     idx = edges_to_index(genes, edges)
 
-    weigth = 15 * np.abs(theta) / np.pi
+    weigth = 30 * np.abs(theta) / np.pi
     es_color = ["#70AD47" if value >= 0 else "#FF0000" for value in theta]
     vs_color = "#DAE3F3"
 
     net = ig.Graph(
         n=len(genes), edges=idx,
-        edge_attrs={"weigth": weigth, "color": es_color, "curved": 0.2},
+        edge_attrs={"weigth": weigth, "color": es_color, "curved": 0.0},
         vertex_attrs={"label": genes, "color": vs_color},
-        directed=True
+        directed=False
     )
 
     net.vs["vertex_frame"] = "#2F528F"
