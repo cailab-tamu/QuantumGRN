@@ -186,7 +186,7 @@ class qscgrn_model():
             return prob
 
 
-    def run_qiskit(self, threshold=5, filename=None):
+    def run_qiskit(self, threshold=1, filename=None):
         """
         Joins the layers and executes the quantum circuit
         Parameters
@@ -196,7 +196,8 @@ class qscgrn_model():
             the same than the qscgrn.visualization.qsc_grn.draw_network method.
             Details in the manuscript.
         filename : str
-            The file name where the schematic of the quantum circuit is saved.
+            The file name where the schematic of the quantum circuit is saved,
+            given a filename.
         Returns
         -------
         counts : np.array

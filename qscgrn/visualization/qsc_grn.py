@@ -17,7 +17,7 @@ def _coordinates_graph(ngenes):
     return x, y
 
 
-def draw_network(genes, edges, theta, threshold=5, filename=None):
+def draw_network(genes, edges, theta, threshold=1, filename=None):
     """
     Draw the network representation of the QuantumGRN model.
     Parameters

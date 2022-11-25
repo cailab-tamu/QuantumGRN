@@ -49,36 +49,28 @@
 </symbol>
 </g>
 </defs>
-<g id="surface6">
+<g id="surface1">
 <rect x="0" y="0" width="400" height="400" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
-<path style="fill:none;stroke-width:0.335452;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 C 310 242.5 285 292.5 275 350 "/>
-<path style="fill:none;stroke-width:0.026338;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 C 260 227.5 185 277.5 125 350 "/>
-<path style="fill:none;stroke-width:0.792993;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 C 290 127.5 215 77.5 125 50 "/>
-<path style="fill:none;stroke-width:0.0867211;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 C 340 142.5 315 92.5 275 50 "/>
-<path style="fill:none;stroke-width:0.335452;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 C 310 242.5 285 292.5 275 350 "/>
-<path style="fill:none;stroke-width:0.37292;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 C 225 335 175 335 125 350 "/>
-<path style="fill:none;stroke-width:0.0701573;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 C 215 277.5 140 227.5 50 200 "/>
-<path style="fill:none;stroke-width:0.616888;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 C 255 235 205 135 125 50 "/>
-<path style="fill:none;stroke-width:0.39944;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 C 305 250 305 150 275 50 "/>
-<path style="fill:none;stroke-width:0.026338;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 C 260 227.5 185 277.5 125 350 "/>
-<path style="fill:none;stroke-width:0.37292;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 C 225 335 175 335 125 350 "/>
-<path style="fill:none;stroke-width:0.204808;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 C 115 292.5 90 242.5 50 200 "/>
-<path style="fill:none;stroke-width:0.484205;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 C 155 250 155 150 125 50 "/>
-<path style="fill:none;stroke-width:0.318217;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 C 205 265 255 165 275 50 "/>
-<path style="fill:none;stroke-width:0.0701573;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 C 215 277.5 140 227.5 50 200 "/>
-<path style="fill:none;stroke-width:0.204808;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 C 115 292.5 90 242.5 50 200 "/>
-<path style="fill:none;stroke-width:0.0206466;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 50 200 C 90 157.5 115 107.5 125 50 "/>
-<path style="fill:none;stroke-width:0.0151419;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 50 200 C 140 172.5 215 122.5 275 50 "/>
-<path style="fill:none;stroke-width:0.792993;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 C 290 127.5 215 77.5 125 50 "/>
-<path style="fill:none;stroke-width:0.616888;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 C 255 235 205 135 125 50 "/>
-<path style="fill:none;stroke-width:0.484205;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 C 155 250 155 150 125 50 "/>
-<path style="fill:none;stroke-width:0.0206466;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 50 200 C 90 157.5 115 107.5 125 50 "/>
-<path style="fill:none;stroke-width:0.373493;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 50 C 175 65 225 65 275 50 "/>
-<path style="fill:none;stroke-width:0.0867211;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 C 340 142.5 315 92.5 275 50 "/>
-<path style="fill:none;stroke-width:0.39944;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 C 305 250 305 150 275 50 "/>
-<path style="fill:none;stroke-width:0.318217;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 C 205 265 255 165 275 50 "/>
-<path style="fill:none;stroke-width:0.0151419;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 50 200 C 140 172.5 215 122.5 275 50 "/>
-<path style="fill:none;stroke-width:0.373493;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 50 C 175 65 225 65 275 50 "/>
+<path style="fill:none;stroke-width:0.670904;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 L 275 350 "/>
+<path style="fill:none;stroke-width:1.585974;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 L 125 50 "/>
+<path style="fill:none;stroke-width:0.173442;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 L 275 50 "/>
+<path style="fill:none;stroke-width:0.670904;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 L 275 350 "/>
+<path style="fill:none;stroke-width:0.745838;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 L 125 350 "/>
+<path style="fill:none;stroke-width:1.23377;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 L 125 50 "/>
+<path style="fill:none;stroke-width:0.798878;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 L 275 50 "/>
+<path style="fill:none;stroke-width:0.745838;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 L 125 350 "/>
+<path style="fill:none;stroke-width:0.409616;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 L 50 200 "/>
+<path style="fill:none;stroke-width:0.968407;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 L 125 50 "/>
+<path style="fill:none;stroke-width:0.636433;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 L 275 50 "/>
+<path style="fill:none;stroke-width:0.409616;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 L 50 200 "/>
+<path style="fill:none;stroke-width:1.585974;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 L 125 50 "/>
+<path style="fill:none;stroke-width:1.23377;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 L 125 50 "/>
+<path style="fill:none;stroke-width:0.968407;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 L 125 50 "/>
+<path style="fill:none;stroke-width:0.746984;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 50 L 275 50 "/>
+<path style="fill:none;stroke-width:0.173442;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 350 200 L 275 50 "/>
+<path style="fill:none;stroke-width:0.798878;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 275 350 L 275 50 "/>
+<path style="fill:none;stroke-width:0.636433;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(43.921569%,67.843137%,27.843137%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 350 L 275 50 "/>
+<path style="fill:none;stroke-width:0.746984;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 125 50 L 275 50 "/>
 <path style="fill-rule:nonzero;fill:rgb(85.490196%,89.019608%,95.294118%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(18.431373%,32.156863%,56.078431%);stroke-opacity:1;stroke-miterlimit:10;" d="M 375 200 C 375 213.808594 363.808594 225 350 225 C 336.191406 225 325 213.808594 325 200 C 325 186.191406 336.191406 175 350 175 C 363.808594 175 375 186.191406 375 200 "/>
 <path style="fill-rule:nonzero;fill:rgb(85.490196%,89.019608%,95.294118%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(18.431373%,32.156863%,56.078431%);stroke-opacity:1;stroke-miterlimit:10;" d="M 300 350 C 300 363.808594 288.808594 375 275 375 C 261.191406 375 250 363.808594 250 350 C 250 336.191406 261.191406 325 275 325 C 288.808594 325 300 336.191406 300 350 "/>
 <path style="fill-rule:nonzero;fill:rgb(85.490196%,89.019608%,95.294118%);fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(18.431373%,32.156863%,56.078431%);stroke-opacity:1;stroke-miterlimit:10;" d="M 150 350 C 150 363.808594 138.808594 375 125 375 C 111.191406 375 100 363.808594 100 350 C 100 336.191406 111.191406 325 125 325 C 138.808594 325 150 336.191406 150 350 "/>
