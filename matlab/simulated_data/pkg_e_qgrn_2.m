@@ -6,9 +6,9 @@ n=length(f0);
 layer1=[];
 for k=1:n, layer1 = [layer1; ryGate(k,2*asin(sqrt(f0(k))))]; end
 
-
+np=2*nchoosek(n,2);
 %theta0=rand(12,1);
-theta0=pi*((rand(12,1)*2)-1);
+theta0=pi*((rand(np,1)*2)-1);
 
 a=nchoosek(1:n,2);
 layer2=[];

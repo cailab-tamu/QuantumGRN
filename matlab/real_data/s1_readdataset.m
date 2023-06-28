@@ -1,5 +1,11 @@
-load example_grn.mat
-load output X
+addpath('..');
+% X=readmatrix('../../dataset/expr_matrix_raw_7.txt');
+
+T=readtable('../../dataset/expr_matrix_raw_7.txt','CollectOutput',true,'ReadVariableNames',false);
+genes=string(T.Var1);
+X=T.(T.Properties.VariableNames{2});
+
+
 [M]=permn([0 1],size(X,1));  
 y=0+(X>0).';
 [~,idx]=ismember(y,M,'rows');

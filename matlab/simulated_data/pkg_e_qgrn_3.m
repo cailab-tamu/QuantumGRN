@@ -5,36 +5,9 @@ n=length(f0);
 layer1=[];
 for k=1:n, layer1 = [layer1; ryGate(k,2*asin(sqrt(f0(k))))]; end
 
-%{
-theta0=i_randpmpi(12,1);
-a=nchoosek(1:4,2);
-layer2=[];
-c=1;
-for k=1:size(a,1)
-    layer2=[layer2; cryGate(a(k,1),a(k,2),theta0(c))];
-    c=c+1;
-    layer2=[layer2; cryGate(a(k,2),a(k,1),theta0(c))];
-    c=c+1;
-end
-C = quantumCircuit([layer1; layer2]);
-
-theta0=i_randpmpi(12,1)';
-[po]=i_qrstates(C,theta0)';
-theta0=i_randpmpi(12,1)';
-[po]=i_qrstates(C,theta0)';
-theta0=i_randpmpi(12,1)';
-[po]=i_qrstates(C,theta0)';
-
-return;
-
-%}
-
-%[pt po]'
-%[kl]=i_kldiverg(pt,po)
-
 
 methodid=1;
-np=12;
+np=2*nchoosek(n,2);
 x0=i_randpmpi(np,1);
 
 switch methodid
@@ -53,7 +26,7 @@ switch methodid
 end
 
 
-[poa]=i_fullcirc(xa,layer1);
+[poa,f1a]=i_fullcirc(xa,layer1);
 
 subplot(2,2,4)
 bar([pt poa])
@@ -62,7 +35,7 @@ set(gca,'XTickLabel',states);
 ylabel('# of cells');
 xlabel('Expression pattern');
 legend({'Target','Observed'})
-title(sprintf('kl=%f',i_kldiverg(pt,poa)));
+title(sprintf('kl=%f',i_kldiverg(pt,poa,true)));
 
 
 At=zeros(n);
@@ -84,6 +57,16 @@ subplot(2,2,2)
 imagesc(At); title('qGRN')
 subplot(2,2,3)
 imagesc(sc_pcnet(X)); title('PCR')
+subplot(2,2,4)
+bar([f0' f1a'])
+%set(gca,'XTick',1:n);
+%set(gca,'XTickLabel',states);
+%ylabel('Gene');
+xlabel('Activation frequency');
+legend({'Target','Observed'})
+title(sprintf('kl=%f',i_kldiverg(f0,f1a)));
+
+
 
 % idx=eye(4);
 % B=zeros(4);
