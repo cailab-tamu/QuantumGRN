@@ -1,15 +1,16 @@
 % C:\ProgramData\MATLAB\SupportPackages\R2023a\toolbox\matlab\quantum\
 
+n=length(f0);
 
 % f0 is used to initialize the first layer ry gates.
 layer1=[];
-for k=1:4, layer1 = [layer1; ryGate(k,2*asin(sqrt(f0(k))))]; end
+for k=1:n, layer1 = [layer1; ryGate(k,2*asin(sqrt(f0(k))))]; end
 
 
 %theta0=rand(12,1);
 theta0=pi*((rand(12,1)*2)-1);
 
-a=nchoosek(1:4,2);
+a=nchoosek(1:n,2);
 layer2=[];
 c=1;
 for k=1:size(a,1)
