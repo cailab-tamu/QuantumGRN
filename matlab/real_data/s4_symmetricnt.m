@@ -20,7 +20,7 @@ C = quantumCircuit([layer1; layer2]);
 
 
 
-methodid=1;
+methodid=2;
 
 
 switch methodid
@@ -32,7 +32,8 @@ switch methodid
         [xa,fval] = fmincon(@i_obj,x0,[],[],[],[], ...
             lb,ub,[],options,pt,C,f0);
     case 2
-        options = optimset('Display','iter','OutputFcn', @myoutput);        
+        options = optimset('Display','iter', ...
+            'OutputFcn', []);        
         [xa,fval] = fminsearch(@i_obj,x0,options,pt,C,f0);
     case 3
         options = optimset('Display','iter','PlotFcns','optimplotfval', ...
@@ -93,8 +94,8 @@ end
 
 
 function stop = myoutput(x, optimValues, state)
-stop = false;
-hold on;
-plot(x(1),x(2),'.');
-drawnow
+% stop = false;
+% hold on;
+% plot(x(1),'.');
+% drawnow
 end
