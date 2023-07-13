@@ -32,7 +32,7 @@ switch methodid
         [xa,fval] = fmincon(@i_obj,x0,[],[],[],[], ...
             lb,ub,[],options,pt,C,f0);
     case 2
-        options = optimset('Display','iter');
+        options = optimset('Display','iter','OutputFcn', @myoutput);        
         [xa,fval] = fminsearch(@i_obj,x0,options,pt,C,f0);
     case 3
         options = optimset('Display','iter','PlotFcns','optimplotfval', ...
@@ -91,3 +91,10 @@ function [y]=i_obj(x,pt,C,f0)
     y=y1+y2;
 end
 
+
+function stop = myoutput(x, optimValues, state)
+stop = false;
+hold on;
+plot(x(1),x(2),'.');
+drawnow
+end
