@@ -1,4 +1,4 @@
-function [po,f1]=i_fullcirc_symm(theta0,C)
+function [po,f1,states]=i_fullcirc_symm(theta0,C)
     np=length(theta0);
     n=(1+sqrt(1+8*np))/2;
     assert(nchoosek(n,2)==np)
@@ -11,7 +11,7 @@ function [po,f1]=i_fullcirc_symm(theta0,C)
         c=c+1;
     end
     S = simulate(C);
-    [~,po] = querystates(S);
+    [states,po] = querystates(S);
     if nargout>1        
         f1=zeros(1,n);
         for k=1:n
