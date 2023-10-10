@@ -28,11 +28,23 @@ C = quantumCircuit([layer1; layer2]);
 
 
 
-methodid=1;
+methodid=99;
 
 
 switch methodid
-    case 1        
+    case 99
+        % surrogateopt https://www.mathworks.com/help/matlab/math/ground-state-protein-folding-using-variational-quantum-eigensolver-vqe.html
+        options = optimoptions("surrogateopt",...
+            "MaxFunctionEvaluations",10, ...
+            "PlotFcn","optimplotfval",...
+            "InitialPoints",pi*ones(np,1));
+        
+        lb = repmat(-pi,np,1);
+        ub = repmat(pi,np,1);
+        objFcn = @(x0) i_obj(x0,pt,C,f0);
+        [xa, fval] = surrogateopt(objFcn,lb,ub,[],[],[],[],[],options);
+        % angles,minEnergy
+    case 1
         options = optimoptions('fmincon','Display','none', ...
             'PlotFcns','optimplotfval','OutputFcn', @myoutput);
         lb=-pi*ones(np,1);
