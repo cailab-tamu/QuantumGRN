@@ -7,27 +7,29 @@ for k=1:n, layer1 = [layer1; ryGate(k,2*asin(sqrt(f0(k))))]; end
 
 np=2*nchoosek(n,2);
 x0=i_randpmpi(np,1);
+theta0=x0;
 
-a=nchoosek(1:n,2);
-layer2=[];
-c=1;
-for k=1:size(a,1)
-    layer2=[layer2; cryGate(a(k,1),a(k,2),x0(c))];
-    c=c+1;
-    layer2=[layer2; cryGate(a(k,2),a(k,1),x0(c))];
-    c=c+1;
-end
-C = quantumCircuit([layer1; layer2]);
+    a=nchoosek(1:n,2);
+    layer2=[];
+    c=1;
+    for k=1:size(a,1)
+       layer2=[layer2; cryGate(a(k,1),a(k,2),theta0(c))];
+       c=c+1;
+       layer2=[layer2; cryGate(a(k,2),a(k,1),theta0(c))];
+       c=c+1;
+    end
+
+    C = quantumCircuit([layer1; layer2]);
 
 
+%%
 
-methodid=1;
+methodid=3;
 
 
 switch methodid
     case 1        
-        options = optimoptions('fmincon','Display','iter', ...
-            'PlotFcns','optimplotfval');
+        options = optimoptions('fmincon','Display','iter');
         lb=-pi*ones(np,1);
         ub=pi*ones(np,1);
         [xa,fval] = fmincon(@i_obj,x0,[],[],[],[], ...
@@ -36,13 +38,11 @@ switch methodid
         options = optimset('Display','iter');
         [xa,fval] = fminsearch(@i_obj,x0,options,pt,C,f0);
     case 3
-        options = optimset('Display','iter','PlotFcns','optimplotfval', ...
-            'TolX',1e-16, 'FunValCheck','on', 'MaxFunEvals',2e3, ...
-            'MaxIter',2e3, 'TolFun',2e-6);
+        options = optimset('Display','iter');
         [xa,fval] = fminunc(@i_obj,x0,options,pt,C,f0);
 end
 
-[poa,f1a,statev]=i_fullcirc_workaround(xa,C);
+[poa,f1a,statev]=i_fullcirc_asym(xa,C);
 
 subplot(2,2,4)
 bar([pt poa])
@@ -87,7 +87,7 @@ subplot(2,2,4)
 
 
 function [y]=i_obj(x,pt,C,f0)
-    [po,f1]=i_fullcirc_workaround(x,C);
+    [po,f1]=i_fullcirc_asym(x,C);
     y1=i_kldiverg(pt,po,true);
     y2=i_kldiverg(f0,f1,false);
     y=y1+y2;

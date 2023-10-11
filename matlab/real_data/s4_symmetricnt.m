@@ -28,7 +28,7 @@ C = quantumCircuit([layer1; layer2]);
 
 
 
-methodid=99;
+methodid=1;
 
 
 switch methodid
@@ -63,14 +63,14 @@ switch methodid
 end
 
 
-[poa,f1a,states]=i_fullcirc_symm(xa,C);
+[poa,f1a,statev]=i_fullcirc_symm(xa,C);
 
 
 
 subplot(2,2,4)
 bar([pt poa])
-set(gca,'XTick',1:length(states));
-set(gca,'XTickLabel',states);
+set(gca,'XTick',1:length(statev));
+set(gca,'XTickLabel',statev);
 ylabel('# of cells');
 xlabel('Expression pattern');
 legend({'Target','Observed'})
@@ -104,7 +104,7 @@ subplot(2,2,3)
 subplot(2,2,4)
     bar([f0' f1a'])
     %set(gca,'XTick',1:n);
-    %set(gca,'XTickLabel',states);
+    %set(gca,'XTickLabel',statev);
     %ylabel('Gene');
     xlabel('Activation frequency');
     legend({'Target','Observed'})

@@ -1,4 +1,4 @@
-function [po,f1]=i_fullcirc_workaround(theta0,C)
+function [po,f1,statev]=i_fullcirc_workaround(theta0,C)
     np=length(theta0)/2;
     n=(1+sqrt(1+8*np))/2;
     assert(nchoosek(n,2)==np)
@@ -8,11 +8,11 @@ function [po,f1]=i_fullcirc_workaround(theta0,C)
     for k=1:size(a,1)
         C.Gates(n+c) = cryGate(a(k,1),a(k,2),theta0(c));
         c=c+1;
-        C.Gates(n+c) = cryGate(a(k,1),a(k,2),theta0(c));
+        C.Gates(n+c) = cryGate(a(k,2),a(k,1),theta0(c));
         c=c+1;
     end
     S = simulate(C);
-    [~,po] = querystates(S);
+    [statev,po] = querystates(S);
     if nargout>1        
         f1=zeros(1,n);
         for k=1:n
