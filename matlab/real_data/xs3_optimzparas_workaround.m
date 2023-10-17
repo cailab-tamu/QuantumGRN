@@ -28,8 +28,8 @@ switch methodid
     case 1        
         options = optimoptions('fmincon','Display','iter', ...
             'PlotFcns','optimplotfval');
-        lb=-pi*ones(np,1);
-        ub=pi*ones(np,1);
+        lb=-pi*ones(np,1)/2;
+        ub=pi*ones(np,1)/2;
         [xa,fval] = fmincon(@i_obj,x0,[],[],[],[], ...
             lb,ub,[],options,pt,C,f0);
     case 2
@@ -85,6 +85,9 @@ subplot(2,2,4)
     legend({'Target','Observed'})
     title(sprintf('kl=%f',i_kldiverg(f0,f1a)));
 
+
+    At
+    i_kldiverg(f0,f1a)
 
 function [y]=i_obj(x,pt,C,f0)
     [po,f1]=i_fullcirc_workaround(x,C);
