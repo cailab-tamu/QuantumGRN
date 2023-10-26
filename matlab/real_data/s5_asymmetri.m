@@ -26,15 +26,20 @@ theta0=x0;
 
 %%
 
-methodid=1;
+methodid=4;
 
 bestxa=0;
 bestf1a=0;
 bestkl=1;
 
 for K=1:1
-K
+    K
     switch methodid
+        case 4 
+            options = optimoptions('particleswarm','SwarmSize',100,'HybridFcn',@fmincon);
+            lb=-0.5*pi*ones(np,1);
+            ub=0.5*pi*ones(np,1);
+            [xa,fval] = particleswarm(@i_obj,length(x0),lb,ub,options,pt,C,f0);            
         case 1        
             options = optimoptions('fmincon','Display','iter');
             lb=-0.5*pi*ones(np,1);
