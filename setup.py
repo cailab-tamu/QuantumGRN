@@ -7,7 +7,7 @@ DESCRIPTION = "qscgrn"
 
 PKGS = find_packages()
 PKG_NAME = "QuantumGRN"
-PKG_VERSION = '0.0.2'
+PKG_VERSION = '1.0.1'
 
 MAINTAINER = 'Cristhian Roman'
 MAINTAINER_EMAIL = 'cristhianromanvicharra@gmail.com'

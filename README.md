@@ -1,7 +1,7 @@
 # QuantumGRN
-A quantum circuit model for inferring gene regulatory networks with application to single-cell transcriptomic data. Reference in the [preprint](https://arxiv.org/abs/2206.15362).
+A quantum circuit model for inferring gene regulatory networks with application to single-cell transcriptomic data. Reference in the [manuscript](https://www.nature.com/articles/s41534-023-00740-6).
 
-Quantum computing holds the promise to achieve certain types of computation that would otherwise be unachievable by classical computers. The advent in the development of quantum algorithms has enabled a variety of applications in chemistry, finance, and cryptography. In this work, we present a quantum circuit model for constructing gene regulatory networks (GRNs) from single-cell transcriptomic data. The model is based on the idea of using qubit-qubit entanglement to simulate the interactions between genes. Each qubit in the circuit represents a gene, and qubits are entangled to simulate the interaction between genes. The strength of gene interactions is estimated using the rotation angle of controlled unitary gates between qubits. We provide preliminary results that suggest our quantum single-cell GRN (qscGRN) modeling method is competitive and warrants further investigation. Specifically, we present the preliminary results derived from the single-cell RNA sequencing (scRNA-seq) data of human lymphoblastoid cell lines, focusing on genes in the nuclear factor-kappa B (NF-κB) signaling pathway. We demonstrate that our qscGRN model can recover known and detect novel regulatory relationships, setting the stage for further investigations on GRNs, given that relationships between fully interconnected genes are approached more effectively by quantum modeling than by statistical correlations. Our quantum circuit model enables the modeling of vast feature space occupied by cells in different transcriptionally activating states, simultaneously tracking activities of thousands of interacting genes and constructing more realistic single-cell GRNs without relying on statistical correlation or regression. We anticipate that quantum computing algorithms based on our circuit model will find more applications in data-driven life sciences, paving the way for the future of predictive biology and precision medicine.
+we introduce a quantum circuit model for inferring gene regulatory networks (GRNs) from single-cell transcriptomic data. The model employs qubit entanglement to simulate interactions between genes, resulting in competitive performance and promising potential for further exploration. We applied our quantum GRN modeling approach to single-cell transcriptomic data from human lymphoblastoid cells, focusing on a small set of genes involved in innate immunity regulation. Our quantum circuit model successfully predicted the presence and absence of regulatory interactions between genes, while also estimating the strength of these interactions. We argue that the application of quantum computing in biology has the potential to provide a better understanding of single-cell GRNs by more effectively approaching the relationship between fully interconnected genes compared to conventional statistical methods such as correlation and regression. Our results encourage further investigation into the creation of quantum algorithms that utilize single-cell data, paving the way for future research into the intersection of quantum computing and biology.
 
 ## Installation (test Pypi)
 Use the package manage [pip](https://pip.pypa.io/en/stable/) to install QuantumGRN
@@ -17,7 +17,7 @@ python 02_example.py
 ```
 
 ## Usage
-QuantumGRN is used as normal package
+QuantumGRN is used as normal package,
 ```python
 import numpy as numpy
 import pandas as pd
@@ -39,6 +39,8 @@ qgrn.train()
 
 draw_network(genes, edges, qgrn.theta, filename="qgrn_network.png")
 ```
+
+More detailed code in the tutorials directory
 
 ## Contributing
 Pull requests are welcome.

@@ -21,6 +21,9 @@ def _loss_function(p_out, p_obs, method="kl-divergence"):
     else:
         raise ValueError("No method to compute the loss function")
 
+def _loss_constraint(theta, ratio=1):
+    func = ratio / np.power(theta**4 - (np.pi/2)**4, 2)
+    return np.sum(func)
 
 def _compute_error(p_out, p_obs):
     err = np.power(p_out - p_obs, 2)
@@ -92,7 +95,7 @@ class model(quantum_circuit):
 
     def __init__(self, ncells,
                  genes, theta, edges, p_obs, drop_zero=True,
-                 epochs=1000, learning_rate=1, method="kl-divergence",
+                 epochs=1000, learning_rate=0.1, method="kl-divergence",
                  train_encoder=False, loss_threshold=None,
                  save_theta=False):
         """
@@ -139,8 +142,9 @@ class model(quantum_circuit):
         self.save_theta = save_theta
         self.loss = np.zeros(shape=(self.epochs,))
         self.error = np.zeros(shape=(self.epochs,))
-        self.loss_threshold = 1e-6 * (2**self.ngenes) \
-            if loss_threshold is None else loss_threshold
+        self.cons = np.zeros(shape=(self.epochs,))
+        self.loss_threshold = 1e-16
+        self.loss_ratio = 1
 
         self.gradient = None
         self.generate_circuit()
@@ -181,7 +185,13 @@ class model(quantum_circuit):
                                   index=index)
 
 
-    def compute_gradient(self):
+    def compute_preprocessing(self):
+        self.p_out = self.output_probabilities(self.drop_zero)
+        self.h_p_out, self.h_N_out = _laplace_smooth(self.p_out, self.ncells)
+        self.h_p_obs, self.h_N_obs = _laplace_smooth(self.p_obs, self.ncells)
+
+
+    def compute_gradient(self, ratio=1):
         """
         Computes the gradients of the loss function with respect to
         the parameters values on each quantum gates within `L_enc`
@@ -196,20 +206,20 @@ class model(quantum_circuit):
             The method attribute must be described in the manuscript.
         """
         self._der_is_empty()
-        p_out = self.output_probabilities(self.drop_zero)
-        h_p_out, h_N_out = _laplace_smooth(p_out, self.ncells)
-        h_p_obs, h_N_obs = _laplace_smooth(self.p_obs, self.ncells)
         N_out = self.ncells
         v = self.output_state()
         dv = self.derivatives
 
-        self.p_out = p_out
-        self.h_p_out = h_p_out
-        self.h_p_obs = h_p_obs
+        # computes the gradient of the `constraint term` for boundaries `\pi/2`
+        der_const = (-2 * ratio * 4 * self.theta**3) \
+            / np.power(self.theta**4 - (np.pi/2)**4, 3)
+        if not self.train_encoder:
+            for gene in self.genes:
+                der_const[(gene, gene)] = 0.0
 
         if self.method == "kl-divergence":
-            num = h_p_out
-            den = h_p_obs
+            num = self.h_p_out
+            den = self.h_p_obs
             log = np.log(num / den)
 
             if self.train_encoder:
@@ -217,16 +227,16 @@ class model(quantum_circuit):
                     der_state = dv.loc[(gene, gene)].to_numpy()\
                         .reshape(2**self.ngenes, 1)
                     der_loss = (1 + log) * 2 * v * der_state \
-                        * (N_out / h_N_out)
-                    self.gradient[(gene, gene)] = np.sum(der_loss)
+                        * (N_out / self.h_N_out)
+                    self.gradient[(gene, gene)] = np.sum(der_loss) + der_const[(gene, gene)]
 
             for idx, edge in enumerate(self.edges):
-                index = self.indexes[idx]
-                der_state = dv.loc[edge].to_numpy().\
-                    reshape(2**self.ngenes, 1)
+                edge_sym = (edge[1], edge[0])
+                tmp_deriv = (dv.loc[edge] + dv.loc[edge_sym]) / 2
+                der_state = tmp_deriv.to_numpy().reshape(2**self.ngenes, 1)
                 der_loss = (1 + log) * 2 * v * der_state \
-                    * (N_out / h_N_out)
-                self.gradient[edge] = np.sum(der_loss)
+                    * (N_out / self.h_N_out)
+                self.gradient[edge] = np.sum(der_loss) + der_const[edge]
 
         else:
             raise AttributeError("The {method} method is not "
@@ -251,40 +261,53 @@ class model(quantum_circuit):
         info_print("Starting the optimization for the QuantumGRN")
         progbar = Progbar(self.epochs)
         training_theta = []
+        window = 10
         for epoch in range(self.epochs):
             terminate = True if epoch+1 == self.epochs else False
             self.compute_derivatives()
-            self.compute_gradient()
-            loss = _loss_function(self.h_p_out, self.h_p_obs,
-                                 self.method)
+            self.compute_preprocessing()
+            loss = _loss_function(self.h_p_out, self.h_p_obs, self.method)
+            self.loss_ratio = loss / _loss_constraint(self.theta, ratio=1)
+            self.compute_gradient(ratio=self.loss_ratio)
+            cons = _loss_constraint(self.theta, ratio=self.loss_ratio)
+            total_loss = loss + cons
             error = _compute_error(self.p_out, self.p_obs)
             self.loss[epoch] = loss
             self.error[epoch] = error
-            progbar.update(epoch+1)
+            self.cons[epoch] = cons
+
+            if epoch >= window+1:
+                iloss = np.mean(self.loss[epoch-(window-1): epoch+1])
+                floss = self.loss[epoch-window]
+                delta = np.abs(floss-iloss) / iloss
+            else:
+                delta = self.loss_threshold
 
             if self.save_theta:
                 training_theta.append(self.theta)
 
-            if self.loss_threshold > loss or terminate:
+            if self.loss_threshold > delta or terminate:
                 self.loss = self.loss[:epoch+1]
                 self.error = self.error[:epoch+1]
+                self.cons = self.cons[:epoch+1]
 
                 if self.save_theta:
                     self.training_theta = np.array(training_theta)
 
+                progbar.update(epoch+1, finalize=True)
                 end_msg = "Due to threshold reached" \
-                    if self.loss_threshold > loss else \
+                    if self.loss_threshold > delta else \
                     "Due to the number of epochs reached"
-
                 info_print("Optimization completed!!.. {msg}"
                            .format(msg=end_msg))
 
                 break
 
+            progbar.update(epoch+1)
             self.theta = self.theta - self.lr * self.gradient
             self.generate_circuit()
 
-    def export_training_theta(self, filename, sample=10):
+    def export_training_theta(self, filename, sample=5):
         """
         Exports the theta values across the training if the attribute
         save_theta is True.
