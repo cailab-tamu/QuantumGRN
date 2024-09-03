@@ -1,11 +1,10 @@
 addpath('..');
-% X=readmatrix('../../dataset/expr_matrix_raw_7.txt');
 
-T=readtable('../../dataset/expr_matrix_raw_7.txt','CollectOutput',true,'ReadVariableNames',false);
+% X=readmatrix('../../dataset/expr_matrix_raw_7.txt');
+T=readtable('../../dataset/expr_matrix_raw_7.txt', ...
+            'CollectOutput',true,'ReadVariableNames',false);
 genes=string(T.Var1);
 X=T.(T.Properties.VariableNames{2});
-
-
 
 [M]=permn([0 1],size(X,1));  
 y=0+(X>0).';
@@ -31,5 +30,3 @@ xlabel('Expression pattern');
 f0=sum(y>0)./size(X,2);   % per gene initial activate freq.
 pt=n./size(X,2);          % target cell state freq.    
 % ---------------------------------------------------------
-
-

@@ -1,5 +1,3 @@
-% C:\ProgramData\MATLAB\SupportPackages\R2023a\toolbox\matlab\quantum\
-
 n=length(f0);
 
 layer1=[];
