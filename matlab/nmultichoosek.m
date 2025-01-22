@@ -1,6 +1,6 @@
 function combs = nmultichoosek(values, k)
 %// Return number of multisubsets or actual multisubsets.
-if numel(values)==1 
+if isscalar(values) 
     n = values;
     combs = nchoosek(n+k-1,k);
 else
