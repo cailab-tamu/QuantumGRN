@@ -151,7 +151,7 @@ class qscgrn_model():
         """
         from qiskit import transpile
         # the next line can be changed to use different simulators
-        from qiskit.providers.aer import AerSimulator
+        from qiskit_aer import AerSimulator
 
         backend = AerSimulator()
         qc_compiled = transpile(qc, backend)
