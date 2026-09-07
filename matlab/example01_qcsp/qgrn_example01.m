@@ -17,8 +17,7 @@
 %   the fitted network depends on that ordering. How much: over 41 orderings
 %   the max edge spread is 0.0162 with no sign flips, but two edges straddle
 %   the pruning threshold -- IRF4-AICDA appears in 24 of 41 orderings and
-%   REL-RELA in 4 of 41. Scripts and finding F6:
-%   test/order_free_rzz/ (ordering_sweep.m, big_sweep.py).
+%   REL-RELA in 4 of 41. See README.md, "This model is order-sensitive".
 
 clear; clc;
 assert(exist('quantumCircuit', 'class') == 8 || exist('quantumCircuit', 'file') > 0, ...

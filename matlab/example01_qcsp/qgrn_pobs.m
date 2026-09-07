@@ -8,8 +8,8 @@ function pObs = qgrn_pobs(B)
 %
 %   Gene k occupies bit k-1, so gene 1 is the least significant bit.
 %   Permuting the rows of B therefore changes the qubit mapping -- which is
-%   precisely the degree of freedom probed by the ordering sweeps in
-%   test/order_free_rzz/ (finding F6).
+%   precisely the degree of freedom probed by the ordering sweeps summarised
+%   in README.md.
 
     [n, ncells] = size(B);
     lab = zeros(1, ncells);

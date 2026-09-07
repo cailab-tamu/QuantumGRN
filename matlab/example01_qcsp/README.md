@@ -22,11 +22,9 @@ with support package 26.1.5).
 
 ## Which model is this?
 
-This implements **Model A** — the circuit as published (Roman-Vicharra & Cai,
-npj QI 9:67, 2023), i.e. the order-sensitive one. "Model A" / "Model B" is the
-naming convention used in `test/order_free_rzz/` (defined in its
-`Provenance.md` §0); Model B is the order-free RZZ variant proposed there, and
-is **not** implemented here.
+This implements the circuit **as published** (Roman-Vicharra & Cai, npj QI
+9:67, 2023) — the order-sensitive one, with a `c-Ry` regulation layer. No
+variant circuits are implemented here.
 
 ## The model in one paragraph
 
@@ -98,14 +96,12 @@ and regulation layers are emitted one control at a time (`qgrn_circuit.m`).
 `c-Ry(p→j)` is not the same circuit as the reverse, because the second gate's
 control has already been rotated. So the fitted θ depends on the gene ordering,
 while the symmetrised gradient imposes `θ_kp = θ_pk` on a structurally
-asymmetric circuit. This is the published criticism recorded in
-`test/order_free_rzz/Provenance.md`.
+asymmetric circuit. This is the published criticism of the method.
 
-It has been measured, using the model code in this folder. The scripts live
-with the ordering analysis they feed, in `test/order_free_rzz/`:
-`ordering_sweep.m` (5 orderings, 100 epochs, MATLAB, ~3 min) and
-`big_sweep.py` (41 orderings × 1200 epochs, Python for speed, ~20 min).
-Recorded as finding **F6** in that folder's `Provenance.md`.
+It has been measured, using the model code in this folder, by sweeping the
+gene→qubit mapping over 41 orderings at 1200 epochs. The sweep scripts belong
+to a separate ordering analysis and are not part of this repository; the
+results are summarised below.
 
 ```
 paper ordering KL = 4.250449e-03
@@ -118,10 +114,9 @@ max edge spread 0.0162 (IRF4-PRDM1)   max std 0.0039   sign flips 0 of 15
 Three things follow.
 
 **The effect is real but second-order.** Every fitted `|θ|` is well below π/4, so
-the `c-Ry` gates nearly commute. This confirms and tightens finding F2 of
-`Provenance.md` (spread 0.015, std 0.005, all signs preserved, 6 orderings) at
-41 orderings and full convergence. Relative spread is 8–19% for the strong
-edges.
+the `c-Ry` gates nearly commute. This confirms and tightens an earlier
+6-ordering pilot (spread 0.015, std 0.005, all signs preserved) at 41 orderings
+and full convergence. Relative spread is 8–19% for the strong edges.
 
 **The paper's ordering is unremarkable.** It sits at the 62.5th percentile of
 the random distribution (z = +0.61); 15 of 40 random orderings fit worse. A
@@ -141,11 +136,6 @@ every time and four never do, but two straddle it:
 So "all signs preserved" holds while the *edge set* does not. IRF4–AICDA is the
 edge the paper flags as incorrectly recovered — whether it appears at all is a
 function of gene ordering.
-
-If you need order-independence rather than a bound on the error, the fix is not
-in this folder — `test/order_free_rzz` replaces the `c-Ry` cascade with a
-commuting RZZ layer (Model B), which has no ordering at all and fits better
-(KL 1.74e-3).
 
 ## One inherited approximation, kept on purpose
 
