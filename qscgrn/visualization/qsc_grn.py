@@ -47,7 +47,7 @@ def draw_network(genes, edges, theta, threshold=1, filename=None):
     edges = theta.index.to_list()
     idx = edges_to_index(genes, edges)
 
-    weigth = 30 * np.abs(theta) / np.pi
+    weigth = (30 * np.abs(theta) / np.pi).to_numpy()
     es_color = ["#70AD47" if value >= 0 else "#FF0000" for value in theta]
     vs_color = "#DAE3F3"
 

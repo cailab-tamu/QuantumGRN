@@ -9,7 +9,7 @@ __all__ = ["theta_init", "edges_init", "edges_to_index",
 
 def theta_init(genes, method="zeros",
                activation_ratios=None):
-    """
+    r"""
     Initialize the values of theta given a list of genes. Genes
     and activation ratios must be ordered decreasingly.
     Parameters
