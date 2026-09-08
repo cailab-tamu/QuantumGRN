@@ -1,4 +1,3 @@
-% C:\ProgramData\MATLAB\SupportPackages\R2023a\toolbox\matlab\quantum\
 s1_readdataset;
 %f0 = [0.2339    0.6698    0.3565    0.2833    0.5844    0.3170];
 %pt =

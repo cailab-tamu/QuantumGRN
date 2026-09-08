@@ -1,7 +1,13 @@
 addpath('..');
 
-% X=readmatrix('../../dataset/expr_matrix_raw_7.txt');
-T=readtable('../../dataset/expr_matrix_raw_7.txt', ...
+% Pearson-residual normalised expression, as used for the published 6-gene
+% result. Binarising at 0 then means "above the expected value". The raw
+% matrix is NOT interchangeable here: on raw counts >0 means "any count
+% detected", which gives quite different activation ratios (IRF4 0.670,
+% REL 0.584 vs 0.349, 0.345) and hence a different encoder and a different
+% target distribution.
+% X=readmatrix('../../dataset/expr_matrix_pearsonresidual_7.txt');
+T=readtable('../../dataset/expr_matrix_pearsonresidual_7.txt', ...
             'CollectOutput',true,'ReadVariableNames',false);
 genes=string(T.Var1);
 X=T.(T.Properties.VariableNames{2});

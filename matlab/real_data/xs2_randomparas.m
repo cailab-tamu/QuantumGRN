@@ -1,7 +1,5 @@
 % s2_randompara
 
-% C:\ProgramData\MATLAB\SupportPackages\R2023a\toolbox\matlab\quantum\
-
 n=length(f0);
 
 % f0 is used to initialize the first layer ry gates.

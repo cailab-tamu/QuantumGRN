@@ -1,12 +1,50 @@
-function [kl]=i_kldiverg(pt,po,rm0)
+function [kl]=i_kldiverg(pt,po,rm0,m)
+%I_KLDIVERG One-directional KL divergence KL(po || pt), as the paper defines it.
+%
+%   KL = I_KLDIVERG(PT,PO) returns 10*sum(po.*log(po./pt)): the divergence OF
+%   the model output PO FROM the target PT. Argument order is (target, model),
+%   which is how the call sites in this repo pass them.
+%
+%   KL = I_KLDIVERG(PT,PO,TRUE) first drops the all-zero state and
+%   renormalises both, as the paper does for p_obs and p_out.
+%
+%   DIRECTION NOW MATTERS. This used to return the symmetrised (Jeffreys)
+%   average, 10*mean([KL(po||pt) KL(pt||po)]), which is invariant under
+%   swapping the two arguments. The published loss (Eq. 5) is the single
+%   direction KL(p_out || p_obs), so that is what this returns now.
+%
+%   Consequence for other callers: any site passing (model, target) rather
+%   than (target, model) now computes the opposite divergence. There is one --
+%   s5_asymmetri.m:122, i_kldiverg(bestpo,pt) -- which is reversed relative to
+%   every other call in the repo. It was harmless while this was symmetric.
+%
+%   The factor of 10 is not in the paper. It is a pure scale, so it leaves
+%   every argmin unchanged (lambda = L_KL/L_cons rescales with it), but it
+%   does shift absolute loss values and any TolFun compared against them.
+%
+%   KL = I_KLDIVERG(PT,PO,RM0,M) additionally applies the paper's Laplace
+%   smoothing with alpha = 1 over M cells, phat = (p*M + 1)/(M + N), before
+%   taking the divergence. Omit M and no smoothing is applied, which is what
+%   every other script in this repo still gets.
+%
+%   Smoothing here is applied to the states that REMAIN after RM0, so N is 63
+%   rather than the paper's 64. That is equivalent to the paper's version to
+%   ~4e-5 relative: the (p*M + 1) numerators are identical, the denominator
+%   cancels inside the log ratio, and the all-zero state the paper keeps
+%   contributes exactly zero to the sum anyway (its smoothed value is
+%   1/(M+64) in both distributions).
     if nargin<3, rm0=false; end
+    if nargin<4, m=[]; end
     if rm0
         pt=pt(2:end);
         po=po(2:end);
         pt=pt./sum(pt);
         po=po./sum(po);
     end
-    KL1 = sum(po .* (log(po)-log(pt)));
-    KL2 = sum(pt .* (log(pt)-log(po)));
-    kl=10*mean([KL1 KL2]);
+    if ~isempty(m)
+        N  = numel(po);                        % Laplace smoothing, alpha = 1
+        po = (po*m + 1)/(m + N);
+        pt = (pt*m + 1)/(m + N);
+    end
+    kl = 10*sum(po .* (log(po)-log(pt)));      % KL(po || pt), Eq. 5
 end

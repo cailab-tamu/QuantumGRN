@@ -1,5 +1,3 @@
-% C:\ProgramData\MATLAB\SupportPackages\R2023a\toolbox\matlab\quantum\
-
 showfig=true;
 
 n=length(f0);
