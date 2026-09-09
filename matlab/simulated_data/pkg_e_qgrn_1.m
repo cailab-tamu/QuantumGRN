@@ -1,7 +1,7 @@
 addpath('..');
 load example_grn.mat
 load output X
-[M]=permn([0 1],size(X,1));  
+[M]=dec2bin(0:2^size(X,1)-1, size(X,1))-'0';   % all 2^n binary states, gene 1 = most significant bit
 y=0+(X>0).';
 [~,idx]=ismember(y,M,'rows');
 t=tabulate(idx);
