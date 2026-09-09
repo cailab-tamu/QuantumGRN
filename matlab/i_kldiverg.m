@@ -1,7 +1,7 @@
 function [kl]=i_kldiverg(pt,po,rm0,m)
 %I_KLDIVERG One-directional KL divergence KL(po || pt), as the paper defines it.
 %
-%   KL = I_KLDIVERG(PT,PO) returns 10*sum(po.*log(po./pt)): the divergence OF
+%   KL = I_KLDIVERG(PT,PO) returns sum(po.*log(po./pt)): the divergence OF
 %   the model output PO FROM the target PT. Argument order is (target, model),
 %   which is how the call sites in this repo pass them.
 %
@@ -18,9 +18,22 @@ function [kl]=i_kldiverg(pt,po,rm0,m)
 %   s5_asymmetri.m:122, i_kldiverg(bestpo,pt) -- which is reversed relative to
 %   every other call in the repo. It was harmless while this was symmetric.
 %
-%   The factor of 10 is not in the paper. It is a pure scale, so it leaves
-%   every argmin unchanged (lambda = L_KL/L_cons rescales with it), but it
-%   does shift absolute loss values and any TolFun compared against them.
+%   NO SCALE FACTOR. This returned 10*KL until 2026-09-08. The 10 is not in
+%   the paper and it made every reported value ten times the divergence, so
+%   comparing against a published KL (4.2504e-03) or against qgrn_objective.m,
+%   which has no such factor, needed a silent division. Removing it is safe:
+%   scaling an objective by a positive constant cannot move its argmin, and
+%   measured on the 6-gene Model B fit the two agree to 2.7e-07 in theta and
+%   7.8e-14 in KL, with the same 12 of 15 edges surviving |theta| > pi/180.
+%   The only mechanism by which the scale mattered is that it also scaled the
+%   gradient, so fminunc's absolute OptimalityTolerance bit a fraction of a
+%   step earlier or later.
+%
+%   Two consequences of the removal, both handled: every displayed "kl=%f"
+%   title across s4/s5/xs2/xs3/pkg_e_qgrn_* drops by 10x, and the
+%   best-of-restarts tests in s5_asymmetri.m and y1_diffnet.m compared
+%   against a hardcoded bestkl = 1, which was scale-dependent; those are now
+%   bestkl = Inf.
 %
 %   KL = I_KLDIVERG(PT,PO,RM0,M) additionally applies the paper's Laplace
 %   smoothing with alpha = 1 over M cells, phat = (p*M + 1)/(M + N), before
@@ -46,5 +59,5 @@ function [kl]=i_kldiverg(pt,po,rm0,m)
         po = (po*m + 1)/(m + N);
         pt = (pt*m + 1)/(m + N);
     end
-    kl = 10*sum(po .* (log(po)-log(pt)));      % KL(po || pt), Eq. 5
+    kl = sum(po .* (log(po)-log(pt)));         % KL(po || pt), Eq. 5
 end

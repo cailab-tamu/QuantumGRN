@@ -28,7 +28,7 @@ methodid=4;
 
 bestxa=0;
 bestf1a=0;
-bestkl=1;
+bestkl=Inf;      % scale-free: was 1, which only worked while i_kldiverg returned 10*KL
 
 for K=1:1
     K
